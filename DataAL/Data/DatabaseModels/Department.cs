@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAL.Data.DatabaseModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,13 @@ namespace DataAL.DatabaseModels
     {
         public Department()
         {
-            Users = new HashSet<User>();
+            Contacts = new HashSet<Contact>();
         }
         public Guid DepartmentId { get; set; }
 
         public string DeptmentName { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<Contact> Contacts { get; set; }
 
 
 

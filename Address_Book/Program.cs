@@ -1,4 +1,7 @@
 using DataAL.Data.Context;
+using DataAL.Repositories.ContactRepository;
+using DataAL.Repositories.DepartmentRepository;
+using DataAL.Repositories.JobTitleRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +16,7 @@ builder.Services.AddSwaggerGen();
 #endregion
 
 
-builder.Services.AddScoped<AddressBookContext, AddressBookContext>();
+
 
 #region Context
 
@@ -21,6 +24,17 @@ var connectionString = builder.Configuration.GetConnectionString("AddressBookCon
 builder.Services.AddDbContext<AddressBookContext>(option =>
 option.UseSqlServer(connectionString));
 
+#endregion
+
+builder.Services.AddScoped<AddressBookContext, AddressBookContext>();
+
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
+
+
+#region RegisteringAutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 # region MiddleWares
 

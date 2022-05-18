@@ -30,9 +30,7 @@ namespace AddressBookBL.DTOs.User
         public string Password { get; init; }
 
         public string Address { get; init; }
-        public string Image { get; init; }
-
-        public String Age { get; set; }
+ 
 
 
 
