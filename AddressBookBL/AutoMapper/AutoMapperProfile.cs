@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using AddressBookBL.DTOs.Department;
 using DataAL.DatabaseModels;
+using AddressBookBL.DTOs.JobTitle;
 
 namespace AddressBookBL.AutoMapper
 {
@@ -17,10 +18,10 @@ namespace AddressBookBL.AutoMapper
             CreateMap<Department, DepartmentReadDTO >();
             CreateMap<DepartmentWriteDTO, Department>();
 
-            //CreateMap<Patient, PatientReadDTO>();
-            //CreateMap<Issue, ChildIssueReadDTO>();
+            CreateMap<JobTitle, JobTitleReadDTO>();
+            CreateMap<JobTitleWriteDTO, JobTitle>();
 
-            //CreateMap<PatientWriteDTO, Patient>();
+         
         }
     }
 }

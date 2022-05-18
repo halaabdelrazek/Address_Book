@@ -1,4 +1,5 @@
 using AddressBookBL.DepartmentBL;
+using AddressBookBL.JobTitleBL;
 using DataAL.Data.Context;
 using DataAL.Repositories.ContactRepository;
 using DataAL.Repositories.DepartmentRepository;
@@ -14,6 +15,8 @@ builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
 builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
+builder.Services.AddScoped<IJobTitleBL, JobTitleBL>();
+
 
 #region Default 
 builder.Services.AddControllers();
