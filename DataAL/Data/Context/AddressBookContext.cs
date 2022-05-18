@@ -1,4 +1,5 @@
-﻿using DataAL.DatabaseModels;
+﻿using DataAL.Data.DatabaseModels;
+using DataAL.DatabaseModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace DataAL.Data.Context
     {
         public DbSet<Department> Departments{ get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public AddressBookContext(DbContextOptions<AddressBookContext> options) : base(options)
         {
 
