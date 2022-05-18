@@ -9,7 +9,7 @@ namespace AddressBookBL.DTOs.Department
     public class DepartmentWriteDTO
     {
         public Guid DepartmentId { get; set; }
-        public string Name { get; init; }
+        public string DepartmentName { get; init; }
 
     }
 }

@@ -10,40 +10,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAL.DatabaseModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AddressBookBL.DepartmentBL
 {
-    public class DepartmentBL
+    public class DepartmentBL : IDepartmentBL
     {
         private readonly IDepartmentRepository deptRepo;
         private readonly IMapper _mapper;
         private readonly AddressBookContext context;
 
-        public DepartmentBL(IDepartmentRepository deptRepo,  IMapper mapper, AddressBookContext _context)
+        public DepartmentBL(IDepartmentRepository deptRepo, IMapper mapper, AddressBookContext _context)
         {
             this.deptRepo = deptRepo;
             _mapper = mapper;
             context = _context;
         }
 
-        public IEnumerable<DepartmentReadDTO> GetDepartmnets()
+        public ActionResult< IEnumerable<DepartmentReadDTO>> GetDepartmnets()
         {
             var deptFromDB = deptRepo.GetAll();
             return _mapper.Map<List<DepartmentReadDTO>>(deptFromDB);
-            
+
         }
 
         public int Post(DepartmentWriteDTO _dept)
         {
-       
-            var deptToAdd = _mapper.Map<Department> (_dept);
+            var deptToAdd = _mapper.Map<Department>(_dept);
             deptToAdd.DepartmentId = Guid.NewGuid();
             context.Departments.Add(deptToAdd);
             return context.SaveChanges();
         }
 
 
-        public DepartmentReadDTO GetById(Guid id)
+        public ActionResult<DepartmentReadDTO> GetById(Guid id)
         {
             var deptFromDB = context.Departments.FirstOrDefault(d => d.DepartmentId == id);
 

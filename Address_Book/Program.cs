@@ -1,3 +1,4 @@
+using AddressBookBL.DepartmentBL;
 using DataAL.Data.Context;
 using DataAL.Repositories.ContactRepository;
 using DataAL.Repositories.DepartmentRepository;
@@ -7,6 +8,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<AddressBookContext, AddressBookContext>();
+
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
+builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
 
 #region Default 
 builder.Services.AddControllers();
@@ -26,11 +33,8 @@ option.UseSqlServer(connectionString));
 
 #endregion
 
-builder.Services.AddScoped<AddressBookContext, AddressBookContext>();
 
-builder.Services.AddScoped<IContactRepository, ContactRepository>();
-builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
+
 
 
 #region RegisteringAutoMapper

@@ -15,7 +15,7 @@ namespace DataAL.DatabaseModels
         }
         public Guid DepartmentId { get; set; }
 
-        public string DeptmentName { get; set; }
+        public string DepartmentName { get; set; }
 
         public ICollection<Contact> Contacts { get; set; }
 
