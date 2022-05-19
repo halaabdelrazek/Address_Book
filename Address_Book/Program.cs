@@ -2,10 +2,14 @@ using AddressBookBL.ContactBL;
 using AddressBookBL.DepartmentBL;
 using AddressBookBL.JobTitleBL;
 using DataAL.Data.Context;
+using DataAL.DatabaseModels;
 using DataAL.Repositories.ContactRepository;
 using DataAL.Repositories.DepartmentRepository;
 using DataAL.Repositories.JobTitleRepository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +44,45 @@ option.UseLazyLoadingProxies()
 
 #endregion
 
+#region ASP Identity
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
 
+    options.User.RequireUniqueEmail = true;
+
+
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+})
+    .AddEntityFrameworkStores<AddressBookContext>();
+#endregion
+
+#region Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "AddressBook";
+    options.DefaultChallengeScheme = "AddressBook";
+})
+    .AddJwtBearer("AddressBook", options =>
+    {
+        var secretKey = builder.Configuration.GetValue<string>("SecretKey");
+        var secretKeyInBytes = Encoding.ASCII.GetBytes(secretKey);
+        var key = new SymmetricSecurityKey(secretKeyInBytes);
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = key,
+            ValidateIssuer = true,
+            ValidIssuer = "AuthServer1",
+            ValidateAudience = true,
+            ValidAudience = "Service1"
+        };
+    });
+#endregion
 
 
 
@@ -59,6 +101,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

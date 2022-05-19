@@ -8,7 +8,7 @@ namespace AddressBookBL.DTOs.User
 {
     public record LoginDTO
     {
-        public string Useremail { get; init; }
+        public string Email { get; init; }
         public string Password { get; init; }
     }
 }
