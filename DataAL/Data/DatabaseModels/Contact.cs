@@ -10,7 +10,7 @@ namespace DataAL.Data.DatabaseModels
     public class Contact
     {
         public Guid ContactId { get; set; }
-        public string Name { get; set; }
+        public string Username { get; set; }
 
         public string Phone { get; set; }
 

@@ -1,3 +1,4 @@
+using AddressBookBL.ContactBL;
 using AddressBookBL.DepartmentBL;
 using AddressBookBL.JobTitleBL;
 using DataAL.Data.Context;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
 builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
 builder.Services.AddScoped<IJobTitleBL, JobTitleBL>();
+builder.Services.AddScoped<IContactBL, ContactBL>();
 
 
 #region Default 
@@ -32,7 +34,9 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("AddressBookConnectionString");
 builder.Services.AddDbContext<AddressBookContext>(option =>
-option.UseSqlServer(connectionString));
+option.UseLazyLoadingProxies()
+      .UseSqlServer(connectionString));
+
 
 #endregion
 

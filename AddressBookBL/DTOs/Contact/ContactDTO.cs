@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AddressBookBL.DTOs.User
+namespace AddressBookBL.DTOs.Contact
 {
-    public class UserReadDTO
+    public class ContactDTO
     {
+        public Guid ContactId { get; set; }
+
         public string Username { get; init; }
 
 
@@ -22,7 +24,7 @@ namespace AddressBookBL.DTOs.User
         [Required(ErrorMessage = "You must provide a phone number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^(\+201|01|00201)[0-2,5]{1}[0-9]{8}", ErrorMessage = "Not a valid phone number")]
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
 
         public DateTime DateOfBirth { get; init; }
 
@@ -31,9 +33,9 @@ namespace AddressBookBL.DTOs.User
 
         public String Age { get; set; }
 
-        public ChildDepartmentReadDTO ChildDepartment { get; init; }
+        public ChildDepartmentReadDTO Department { get; init; }
 
-        public ChildJobTitleReadDTO ChildJobTitle { get; init; }
+        public ChildJobTitleReadDTO JobTitle { get; init; }
 
 
 

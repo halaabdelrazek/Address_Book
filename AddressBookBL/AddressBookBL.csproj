@@ -14,8 +14,4 @@
     <ProjectReference Include="..\DataAL\DataAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contact\" />
-  </ItemGroup>
-
 </Project>

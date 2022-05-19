@@ -17,6 +17,6 @@ namespace DataAL.DatabaseModels
 
         public string JobTitleName { get; set; }
 
-        public ICollection<Contact> Contacts { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
     }
 }
