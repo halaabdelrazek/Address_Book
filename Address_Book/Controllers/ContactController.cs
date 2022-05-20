@@ -38,7 +38,7 @@ namespace Address_Book.Controllers
         // PUT: api/Contacts/id
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public IActionResult PutContact(Guid id, ContactDTO contact)
+        public ActionResult<ContactDTO> PutContact(Guid id, ContactDTO contact)
         {
             if (contactBL.PutContact(id, contact) == -1)
             {
@@ -51,8 +51,9 @@ namespace Address_Book.Controllers
                 return NotFound();
             }
 
+            
 
-            return Ok();
+            return Ok(contactBL.GetById(id));
         }
 
 

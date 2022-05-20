@@ -9,7 +9,7 @@ namespace AddressBookBL.DTOs.Department
     public class ChildDepartmentReadDTO
     {
         public Guid DepartmentId { get; init; }
-        //public string DepartmentName { get; init; }
+        public string DepartmentName { get; init; }
 
     }
 }

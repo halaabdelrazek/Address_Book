@@ -61,7 +61,7 @@ namespace Address_Book.Controllers
             }
 
 
-            return StatusCode(StatusCodes.Status201Created, "UserCreated Successfully");
+            return Ok();
         }
         #endregion
 

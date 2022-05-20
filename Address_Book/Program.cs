@@ -11,7 +11,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+var MyAllowOrigins = "_myAllowcOrigins";
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                          
+                          
+                      });
+});
 
 // Add services to the container.
 builder.Services.AddScoped<AddressBookContext, AddressBookContext>();
@@ -101,6 +119,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(MyAllowOrigins);
 
 app.UseAuthentication();
 
