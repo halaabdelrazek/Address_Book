@@ -30,6 +30,10 @@ namespace AddressBookBL.AutoMapper
             CreateMap<Contact, ContactDTO>();
             CreateMap<ContactDTO, Contact>();
 
+            CreateMap<ContactReadDTO, Contact>();
+            CreateMap<Contact, ContactReadDTO>();
+
+            
             CreateMap<Contact, ChildContactDTO>();
 
 

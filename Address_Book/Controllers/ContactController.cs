@@ -16,10 +16,17 @@ namespace Address_Book.Controllers
         {
             this.contactBL = contactBL;
         }
+        [Route("FiltersContact")]
+        [HttpPost]
+        public ActionResult<IEnumerable<ContactReadDTO>> GetContactFiltered(AllContactFilterDTO request)
+        {
 
+            return contactBL.GetFilteredContacts(request);
+
+        }
         // GET: api/Contacts
         [HttpGet]
-        public ActionResult<IEnumerable<ContactDTO>> GetContact()
+        public ActionResult<IEnumerable<ContactReadDTO>> GetContact()
         {
 
             return contactBL.GetContacts();
@@ -28,7 +35,7 @@ namespace Address_Book.Controllers
         // POST: api/Contact
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public ActionResult<ContactDTO> PostContact(ContactDTO contact)
+        public ActionResult<ContactReadDTO> PostContact(ContactDTO contact)
         {
             var ContactDTO = contactBL.Post(contact);
             return Created("Contact Created",ContactDTO);
@@ -38,7 +45,7 @@ namespace Address_Book.Controllers
         // PUT: api/Contacts/id
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public ActionResult<ContactDTO> PutContact(Guid id, ContactDTO contact)
+        public ActionResult<ContactReadDTO> PutContact(Guid id, ContactDTO contact)
         {
             if (contactBL.PutContact(id, contact) == -1)
             {
@@ -51,15 +58,17 @@ namespace Address_Book.Controllers
                 return NotFound();
             }
 
-            
+            var returnedContact = contactBL.GetById(id);
 
-            return Ok(contactBL.GetById(id));
+
+
+            return Ok(returnedContact);
         }
 
 
         // DELETE: api/Contact/id
         [HttpDelete("{id}")]
-        public ActionResult<ContactDTO> DeleteContact(Guid id)
+        public ActionResult<ContactReadDTO> DeleteContact(Guid id)
         {
             var returnedContact = contactBL.DeleteContact(id);
 

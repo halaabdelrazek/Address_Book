@@ -73,7 +73,7 @@ namespace Address_Book.Controllers
             var user = await _userManager.FindByEmailAsync(credentials.Email);
             if (user is null)
             {
-                return Unauthorized("You must be registered");
+                return Unauthorized("Email or password are wrong");
             }
 
             var isLocked = await _userManager.IsLockedOutAsync(user);

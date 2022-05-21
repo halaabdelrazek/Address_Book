@@ -27,21 +27,26 @@ namespace AddressBookBL.ContactBL
             context = _context;
         }
 
-        public ActionResult<IEnumerable<ContactDTO>> GetContacts()
+        public ActionResult<IEnumerable<ContactReadDTO>> GetContacts()
         {
             var contactFromDB = contactRepo.GetAll();
-            return _mapper.Map<List<ContactDTO>>(contactFromDB);
+            return _mapper.Map<List<ContactReadDTO>>(contactFromDB);
 
         }
+        public ActionResult<IEnumerable<ContactReadDTO>> GetFilteredContacts(AllContactFilterDTO request)
+        {
+            var contactFromDB = contactRepo.GetAllFiltered(request.FullNameQuery,request.TitleQuery);
+            return _mapper.Map<List<ContactReadDTO>>(contactFromDB);
 
-        public ContactDTO Post(ContactDTO _contact)
+        }
+        public ContactReadDTO Post(ContactDTO _contact)
         {
             var contactToAdd = _mapper.Map<Contact>(_contact);
 
-            var newContactDepartment = context.Departments.FirstOrDefault(i=>i.DepartmentId==_contact.Department.DepartmentId);
+            var newContactDepartment = context.Departments.FirstOrDefault(i=>i.DepartmentId.ToString() ==_contact.DepartmentId);
             contactToAdd.Department = newContactDepartment;
 
-            var newContactJobTitle = context.JobTitles.FirstOrDefault(i => i.JobTitleId == _contact.JobTitle.JobTitleId);
+            var newContactJobTitle = context.JobTitles.FirstOrDefault(i => i.JobTitleId.ToString() == _contact.JobTitleId);
             contactToAdd.JobTitle = newContactJobTitle;
 
             contactToAdd.ContactId = Guid.NewGuid();
@@ -53,18 +58,18 @@ namespace AddressBookBL.ContactBL
             context.SaveChanges();
 
 
-            return _contact;
+            return _mapper.Map<ContactReadDTO>(contactToAdd);
         }
 
 
-        public ActionResult<ContactDTO> GetById(Guid id)
+        public ContactReadDTO GetById(Guid id)
         {
             var contactFromDB = context.Contacts.FirstOrDefault(c => c.ContactId == id);
 
-            return _mapper.Map<ContactDTO>(contactFromDB);
+            return _mapper.Map<ContactReadDTO>(contactFromDB);
         }
 
-        public ContactDTO DeleteContact(Guid id)
+        public ContactReadDTO DeleteContact(Guid id)
         {
             var contactDeleted = contactRepo.GetById(id);
 
@@ -73,7 +78,7 @@ namespace AddressBookBL.ContactBL
             contactRepo.SaveChanges();
 
             //Contact is deleted
-            return _mapper.Map<ContactDTO>(contactDeleted);
+            return _mapper.Map<ContactReadDTO>(contactDeleted);
              
         }
 

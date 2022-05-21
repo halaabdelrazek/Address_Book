@@ -5,11 +5,12 @@ namespace AddressBookBL.ContactBL
 {
     public interface IContactBL
     {
-        ActionResult<IEnumerable<ContactDTO>> GetContacts();
-        ContactDTO Post(ContactDTO _contact);
+        ActionResult<IEnumerable<ContactReadDTO>> GetContacts();
+        ActionResult<IEnumerable<ContactReadDTO>> GetFilteredContacts(AllContactFilterDTO request);
+        ContactReadDTO Post(ContactDTO _contact);
 
-        ActionResult<ContactDTO> GetById(Guid id);
-        ContactDTO DeleteContact(Guid id);
+        ContactReadDTO GetById(Guid id);
+        ContactReadDTO DeleteContact(Guid id);
         int PutContact(Guid id, ContactDTO _contact);
 
     }
