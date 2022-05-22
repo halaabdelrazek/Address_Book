@@ -11,7 +11,9 @@ namespace AddressBookBL.ContactBL
 
         ContactReadDTO GetById(Guid id);
         ContactReadDTO DeleteContact(Guid id);
+
         int PutContact(Guid id, ContactDTO _contact);
+        void AsssignImageToContact(Guid id, string imagePath);
 
     }
 }

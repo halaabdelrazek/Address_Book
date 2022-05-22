@@ -10,6 +10,7 @@ using DataAL.DatabaseModels;
 using AddressBookBL.DTOs.JobTitle;
 using DataAL.Data.DatabaseModels;
 using AddressBookBL.DTOs.Contact;
+using DataAL.Data.FilterContact;
 
 namespace AddressBookBL.AutoMapper
 {
@@ -34,6 +35,8 @@ namespace AddressBookBL.AutoMapper
             CreateMap<Contact, ContactReadDTO>();
 
             
+
+            
             CreateMap<Contact, ChildContactDTO>();
 
 
@@ -45,6 +48,7 @@ namespace AddressBookBL.AutoMapper
 
             CreateMap<JobTitle, ChildJobTitleReadDTO>();
 
+            CreateMap<AllContactFilterDTO, FilteredContactDTO>();
 
 
 

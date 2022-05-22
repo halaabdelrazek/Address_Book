@@ -8,6 +8,7 @@ using DataAL.Repositories.DepartmentRepository;
 using DataAL.Repositories.JobTitleRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -26,6 +27,7 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                           .AllowAnyHeader();
+                          
                           
                           
                       });
@@ -111,6 +113,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
+app.UseCors(MyAllowOrigins);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -118,8 +122,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
-app.UseCors(MyAllowOrigins);
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 
 app.UseAuthentication();
 

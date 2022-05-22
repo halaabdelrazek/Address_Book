@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AddressBookBL.DTOs.Contact
+namespace DataAL.Data.FilterContact
 {
-    public class AllContactFilterDTO
+    public class FilteredContactDTO
     {
+
         public string? fullNameQuery { get; set; }
         public string? titleQuery { get; set; }
         public string? departmentQuery { get; set; }
@@ -20,7 +21,5 @@ namespace AddressBookBL.DTOs.Contact
         public DateTime? To { get; set; }
 
         public DateTime? From { get; set; }
-
-
     }
 }

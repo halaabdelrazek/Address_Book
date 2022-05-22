@@ -3,6 +3,7 @@ using AddressBookBL.DTOs.JobTitle;
 using AutoMapper;
 using DataAL.Data.Context;
 using DataAL.Data.DatabaseModels;
+using DataAL.Data.FilterContact;
 using DataAL.DatabaseModels;
 using DataAL.Repositories.ContactRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,8 @@ namespace AddressBookBL.ContactBL
         }
         public ActionResult<IEnumerable<ContactReadDTO>> GetFilteredContacts(AllContactFilterDTO request)
         {
-            var contactFromDB = contactRepo.GetAllFiltered(request.FullNameQuery,request.TitleQuery);
+            var filterRequest= _mapper.Map<FilteredContactDTO>(request);
+            var contactFromDB = contactRepo.GetAllFiltered(filterRequest);
             return _mapper.Map<List<ContactReadDTO>>(contactFromDB);
 
         }
@@ -108,6 +110,19 @@ namespace AddressBookBL.ContactBL
             // retun 1 to update dept done
 
             return 1;
+        }
+
+        public void AsssignImageToContact(Guid id , string imagePath)
+        {
+            var contact =  contactRepo.GetById(id);
+
+            contact.Image = imagePath;
+
+            contactRepo.SaveChanges();
+
+
+
+
         }
     }
 }

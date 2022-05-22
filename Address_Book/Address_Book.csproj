@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <Content Include="Resources\**">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="microsoft.aspnetcore.authentication.jwtbearer" Version="6.0.5" />
     <PackageReference Include="microsoft.aspnetcore.identity" Version="2.2.0" />

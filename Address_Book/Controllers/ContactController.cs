@@ -3,6 +3,7 @@ using AddressBookBL.DTOs.Contact;
 using DataAL.Data.DatabaseModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace Address_Book.Controllers
 {
@@ -73,6 +74,44 @@ namespace Address_Book.Controllers
             var returnedContact = contactBL.DeleteContact(id);
 
             return Ok(returnedContact);
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Upload/{id}")]
+        public ActionResult<ContactReadDTO> UploadImage(Guid id )
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "img");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue
+                        .Parse(file.ContentDisposition).FileName.Replace("\"",String.Empty);
+
+                    fileName = Guid.NewGuid().ToString() + fileName;
+                    var fullPath = System.IO.Path.Combine(pathToSave, path2: fileName.ToString());
+                    var dbPath = Path.Combine(folderName, fileName.ToString());
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                   contactBL.AsssignImageToContact(id, dbPath);
+
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
     }

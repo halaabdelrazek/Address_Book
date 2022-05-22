@@ -29,7 +29,7 @@ namespace AddressBookBL.DTOs.Contact
         public DateTime DateOfBirth { get; init; }
 
         public string Address { get; init; }
-        public string Image { get; init; }
+        public string? Image { get; init; }
 
         public String Age { get; set; }
 
