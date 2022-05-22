@@ -1,13 +1,14 @@
 ﻿using AddressBookBL.DepartmentBL;
 using AddressBookBL.DTOs.Department;
 using DataAL.DatabaseModels;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Address_Book.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentBL deptBL;
@@ -23,7 +24,7 @@ namespace Address_Book.Controllers
         {
 
             return deptBL.GetDepartmnets();
-           
+
         }
 
         // GET: api/Department/id
@@ -39,17 +40,17 @@ namespace Address_Book.Controllers
         [HttpPut("{id}")]
         public IActionResult PutDepartment(Guid id, DepartmentWriteDTO dept)
         {
-            if (deptBL.PutDepartment(id,dept) == -1)
+            if (deptBL.PutDepartment(id, dept) == -1)
             {
                 return BadRequest();
             }
 
-            
+
             if (deptBL.PutDepartment(id, dept) == 0)
             {
                 return NotFound();
             }
-          
+
 
             return NoContent();
         }
@@ -68,7 +69,7 @@ namespace Address_Book.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteDepartment(Guid id)
         {
-           
+
             if (deptBL.DeleteDepartment(id) == 0)
             {
                 return NotFound();
@@ -77,6 +78,6 @@ namespace Address_Book.Controllers
             return NoContent();
         }
 
-       
+
     }
 }

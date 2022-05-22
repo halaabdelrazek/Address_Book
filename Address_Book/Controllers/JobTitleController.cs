@@ -1,6 +1,7 @@
 ﻿using AddressBookBL.DTOs.JobTitle;
 using AddressBookBL.JobTitleBL;
 using DataAL.DatabaseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace Address_Book.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobTitleController : ControllerBase
     {
         private readonly IJobTitleBL jobTitleBL;

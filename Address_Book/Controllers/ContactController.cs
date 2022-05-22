@@ -1,6 +1,7 @@
 ﻿using AddressBookBL.ContactBL;
 using AddressBookBL.DTOs.Contact;
 using DataAL.Data.DatabaseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
@@ -9,6 +10,7 @@ namespace Address_Book.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ContactController : ControllerBase
     {
         private readonly IContactBL contactBL;
